@@ -1,14 +1,14 @@
 <h1 class="title is-1 publication-title">MeshRipple: Structured Autoregressive Generation of Artist-Meshes</h1>
 <h4 align="center" style="line-height:1.4; margin-top:0.6rem">
-  <a href="https://openreview.net/profile?id=~Junkai_Lin1">Junkai Lin</a><sup>1</sup>,
-  <a href="https://openreview.net/profile?id=~Hang_Long1">Hang Long</a><sup>1</sup>,
-  <a href="https://openreview.net/profile?id=~Huipeng_Guo2">Huipeng Guo</a><sup>1</sup>,
-  <a href="https://openreview.net/profile?id=~Jielei_Zhang2">Jielei Zhang</a><sup>1</sup>,
-  <a href="https://openreview.net/profile?id=~JiaYi_Yang9">JiaYi Yang</a><sup>1</sup>,
-  <a href="https://openreview.net/profile?id=~Tianle_Guo1">Tianle Guo</a><sup>1</sup>,
-  <a href="https://openreview.net/profile?id=~Yang_Yang135">Yang Yang</a><sup>1</sup>,
-  <a href="./index.html">Jianwen Li</a><sup>2</sup>,
-  <a href="./index.html">Wenxiao Zhang</a><sup>2</sup>,
+  <a href="https://github.com/MayMhappy">Junkai Lin</a><sup>1</sup>,
+  <a href="https://github.com/LoHhhha">Hang Long</a><sup>1</sup>,
+  Huipeng Guo<sup>1</sup>,
+  Jielei Zhang<sup>1</sup>,
+  JiaYi Yang<sup>1</sup>,
+  Tianle Guo<sup>1</sup>,
+  Yang Yang<sup>1</sup>,
+  <a href="mailto:jianwenli.ai@gmail.com">Jianwen Li</a><sup>2</sup>,
+  <a href="mailto:forever.wx.zhang@gmail.com">Wenxiao Zhang</a><sup>2</sup>,
   <a href="https://niessnerlab.org">Matthias Nießner</a><sup>3</sup>,
   <a href="https://weiyang-hust.github.io">Wei Yang</a><sup>1, †</sup>
 </h4>

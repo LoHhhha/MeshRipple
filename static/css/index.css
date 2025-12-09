@@ -210,9 +210,9 @@ body {
 
 .floorplan-obj-viewer-container {
   display: grid;
-  grid-template-rows: 15vmin 31vmin 2vmin;
-  grid-template-columns: 15vmin 15vmin 15vmin 15vmin 15vmin 15vmin;
-  gap: max(10px, 1vmin);
+  grid-template-rows: 20vmin 2vmin 27vmin 2vmin;
+  grid-template-columns: repeat(12, 6vmin);
+  gap: 1vmin;
   justify-content: center;
 }
 
@@ -232,4 +232,14 @@ body {
 .room-viewer-button:hover {
   outline: 2px solid black;
   background-color: #f0f0f0;
+}
+
+.room-video-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  gap: max(10px, 1vmin);
+  justify-content: center;
+  align-items: center;
 }

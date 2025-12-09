@@ -24,17 +24,18 @@ const boxPairs = [
 const viewerElementIdPairs = [
     ["floorplan-viewer-1", "room-viewer-1"],
     ["floorplan-viewer-2", "room-viewer-2"],
-    ["floorplan-viewer-3", "room-viewer-3"],
 ]
 
 const allViewerElementIdPairs = [
-    ["floorplan-viewer-4", "room-viewer-4", "room-viewer-5"],
+    ["floorplan-viewer-3", "room-viewer-3", "room-viewer-4"],
 ]
 
-const nextButtonId = "floorplan-obj-viewer-container-next";
+const nextButtonId0 = "floorplan-obj-viewer-container-next-0";
+const nextButtonId1 = "floorplan-obj-viewer-container-next-1";
 
 function addRoomResult(){
-    const nextButton = document.getElementById(nextButtonId);
+    const nextButton0 = document.getElementById(nextButtonId0);
+    const nextButton1 = document.getElementById(nextButtonId1);
 
     const viewerPairs = viewerElementIdPairs.map((item) => {
         const imgViewer = document.getElementById(item[0]);
@@ -57,7 +58,7 @@ function addRoomResult(){
     let currentStartDisplayIdx = 0;
     let currentAllStartDisplayIdx = 0;
 
-    const update = () => {
+    const update0 = () => {
         for(let i = 0; i < viewerPairAmount; i++){
             const objPair = boxPairs.at((currentStartDisplayIdx + i) % objPairAmount);
             if(viewerPairInfo[i] === null){
@@ -77,7 +78,9 @@ function addRoomResult(){
                 viewerPairInfo[i].obj.update(objPair[1]);
             }
         }
-
+    };
+    
+    const update1 = () => {
         for(let i = 0; i < allViewerPairAmount; i++){
             const objPair = allPairs.at((currentAllStartDisplayIdx + i) % allObjPairAmount);
             if(allViewerPairInfo[i] === null){
@@ -104,14 +107,20 @@ function addRoomResult(){
             }
         }
     };
-    update();
 
-    nextButton.onclick = () => {
+    update0();
+    update1();
+
+    nextButton0.onclick = () => {
         currentStartDisplayIdx += viewerPairAmount;
         currentStartDisplayIdx %= objPairAmount;
+        update0();
+    }
+
+    nextButton1.onclick = () => {
         currentAllStartDisplayIdx += allViewerPairAmount;
         currentAllStartDisplayIdx %= allObjPairAmount;
-        update();
+        update1();
     }
 }
 

@@ -1,7 +1,7 @@
 <h1 class="title is-1 publication-title">MeshRipple: Structured Autoregressive Generation of Artist-Meshes</h1>
 <h4 align="center" style="line-height:1.4; margin-top:0.6rem">
-  <a href="https://github.com/MayMhappy">Junkai Lin</a><sup>1</sup>,
-  <a href="https://github.com/LoHhhha">Hang Long</a><sup>1</sup>,
+  <a href="https://github.com/MayMhappy">Junkai Lin</a><sup>1,*</sup>,
+  <a href="https://github.com/LoHhhha">Hang Long</a><sup>1,*</sup>,
   Huipeng Guo<sup>1</sup>,
   Jielei Zhang<sup>1</sup>,
   JiaYi Yang<sup>1</sup>,
@@ -34,7 +34,6 @@
 
 
 <h1 align="center" style="line-height:1.3; margin-bottom:0.6rem;">
-  <!-- MeshRipple 标题图片 -->
   <img src="./assets/teaser.png"
        alt="MeshRipple"
        style="display:block; margin:0 auto 0.4rem auto; max-width:100%;">
@@ -51,22 +50,95 @@ Meshes serve as a primary representation for 3D assets. Autoregressive mesh gene
 To address this critical limitation, we introduce <b>MeshRipple</b>, which expands a mesh outward from an active generation frontier, akin to a ripple on a surface.
 MeshRipple rests on three key innovations: a frontier-aware BFS tokenization that aligns the generation order with surface topology; an expansive prediction strategy that maintains coherent, connected surface growth; and a sparse-attention global memory that provides an effectively unbounded receptive field to resolve long-range topological dependencies.
 This integrated design enables MeshRipple to generate meshes with high surface fidelity and topological completeness, outperforming strong recent baselines.
-## TODO
-- [ ] Release inference & training code of Hourglass tarnsformers
-- [ ] Release inference code for MeshRipple
-- [ ] Release training code for MeshRipple
+
+## 1. Environment
+
+### 1.1 Clone the repository
+```bash
+git clone -b main --single-branch https://github.com/MayMhappy/MeshRipple.git
+```
+### 1.2 Create environment
+
+```bash
+conda create -n meshripple python=3.12 -y
+conda activate meshripple
+```
+
+### 1.3 Install dependencies
+
+`requirement.txt` is currently empty in this repo, so install the main runtime packages manually:
+
+```bash
+pip install torch==2.8.0 torchvision==0.23.0 torchaudio==2.8.0 --index-url https://download.pytorch.org/whl/cu128
+pip install -r requirement.txt 
+```
+
+For FlashAttention (needed by NSA-related code paths), install the wheel matching your CUDA + PyTorch version:
+
+```bash
+wget https://github.com/Dao-AILab/flash-attention/releases/download/v2.7.3/flash_attn-2.7.3+cu12torch2.8cxx11abiFALSE-cp312-cp312-linux_x86_64.whl
+pip install flash_attn-2.7.3+cu12torch2.8cxx11abiFALSE-cp312-cp312-linux_x86_64.whl
+```
+
+If FlashAttention build fails, please first confirm your CUDA toolkit, NVCC, and PyTorch CUDA version are aligned.
+
+## 2. Checkpoint Download
+
+The model checkpoints should be placed under the `./ckpt/` directory. 
+
+You can download the trained weights from [Google Drive](https://drive.google.com/drive/folders/1qex2gbIoxh4-qRbAUYxIF5b_OwvLhOxq). 
+
+| Filename | Description |
+| :--- | :--- |
+| `meshRipple_10k.pth` | 10k faces version using **Full Context Attention**. |
+| `meshRipple_nsa.pth` | 20k faces version using **NSA**. |
+
+Download the desired `.pth` files and move them into `./ckpt/`.
+
+## 3. Demo Inference
+
+### 3.1 10k Full-Attention demo
+
+```bash
+python main.py --config config_loader/config_10k_full_dense_mesh.yaml
+```
+
+### 3.2 20k NSA demo
+
+> **Note:** The current NSA inference implementation does not yet include KV cache support, which may result in slower generation speeds. We will integrate KV caching in a future update to significantly accelerate inference.
+
+```bash
+python main.py --config config_loader/config_20k_nsa.yaml
+```
+
+## 4. TODO
+
+- [ ] Add NSA inference acceleration with KV cache support.
+- [ ] Release the training code.
+
+## 5. Acknowledgements
+
+We sincerely thank the following projects:
+
+- [IFlame](https://github.com/hanxiaowang00/iFlame)
+- [native-sparse-attention-triton](https://github.com/XunhaoLai/native-sparse-attention-triton)
+- [Michelangelo](https://huggingface.co/Maikou/Michelangelo)
+- [DeepMesh](https://github.com/zhaorw02/DeepMesh/tree/main)
+- [BPT](https://github.com/Tencent-Hunyuan/bpt)
 
 
-## Citation
-If you find our work helpful, please consider citing:
+## 6. Citations
+
+If you find this project useful, please cite:
+
 ```bibtex
 @misc{lin2025meshripplestructuredautoregressivegeneration,
-      title={MeshRipple: Structured Autoregressive Generation of Artist-Meshes}, 
-      author={Junkai Lin and Hang Long and Huipeng Guo and Jielei Zhang and JiaYi Yang and Tianle Guo and Yang Yang and Jianwen Li and Wenxiao Zhang and Matthias Nießner and Wei Yang},
-      year={2025},
-      eprint={2512.07514},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV},
-      url={https://arxiv.org/abs/2512.07514}, 
+  title={MeshRipple: Structured Autoregressive Generation of Artist-Meshes},
+  author={Junkai Lin and Hang Long and Huipeng Guo and Jielei Zhang and JiaYi Yang and Tianle Guo and Yang Yang and Jianwen Li and Wenxiao Zhang and Matthias Nießner and Wei Yang},
+  year={2025},
+  eprint={2512.07514},
+  archivePrefix={arXiv},
+  primaryClass={cs.CV},
+  url={https://arxiv.org/abs/2512.07514},
 }
 ```
